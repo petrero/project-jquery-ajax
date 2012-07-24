@@ -162,6 +162,10 @@ var app = {
 		$('body').ajaxStop(function(){
 			$('#ajax-status').fadeOut();
 		});
+		
+		$('body').ajaxError(function(event, xhr, ajaxOptions, thrownError){
+			console.log("XHR Response: " + JSON.stringify(xhr));
+		});
 	}
 }
 
