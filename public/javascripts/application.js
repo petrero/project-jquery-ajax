@@ -152,6 +152,16 @@ var app = {
 
 	loadReport: function(){
 		$('#report').load("/report.html .task-stats");
+	},
+
+	setupAjaxCallbacks: function(){
+		$('body').ajaxStart(function(){
+			$('#ajax-status').show().text("Loading...");
+		});
+
+		$('body').ajaxStop(function(){
+			$('#ajax-status').fadeOut();
+		});
 	}
 }
 
@@ -168,6 +178,8 @@ jQuery(function() {
 
   // Modify CSS
   //   $('#timer-log div').css({opacity:0.3});
+
+	app.setupAjaxCallbacks();	
 
   app.setupTimerButtons();
 	app.setupTaskForms();
