@@ -220,3 +220,22 @@ body {
     padding-right: 1em;
     padding-left: 0.1em;
     line-height: 0; }
+	
+	#tweets {
+  width: 480px;
+  margin: 100px auto;
+  clear: all; }
+  #tweets .tweet {
+    margin-bottom: 2em; }
+    #tweets .tweet img {
+      float: left; }
+    #tweets .tweet .from_user, #tweets .tweet .text {
+      margin-left: 65px;
+      font-family: 'Lucida Grande', 'Helvetica Neue', Helvetica, sans-serif; }
+    #tweets .tweet .from_user {
+      font-size: 0.7em;
+      color: #64584c;
+      margin-top: 0;
+      margin-bottom: 0.5em; }
+    #tweets .tweet .text {
+      font-size: 0.8em; }

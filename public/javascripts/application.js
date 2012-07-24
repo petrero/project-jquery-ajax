@@ -164,7 +164,35 @@ var app = {
 		});
 		
 		$('body').ajaxError(function(event, xhr, ajaxOptions, thrownError){
+			if (xhr.status === 401) {
+				if ($('#login').is(":hidden")) {
+					app.showLoginForm();
+				}
+				alert("Sorry, " + xhr.responseText.toLowerCase());
+				$("#login input[type='text']:first").focus();
+			}
 			console.log("XHR Response: " + JSON.stringify(xhr));
+		});
+	},
+
+	showLoginForm: function(){
+		$(window).resize(app.centerLoginForm);
+		app.centerLoginForm();
+
+
+		var $form = $('form#login');
+		$form.show("slide", {direction: "up"}); //show with parameters with jquery.ui
+		$form.submit(function(e){
+			e.preventDefault();
+			$.post($form.attr('action'), $form.serialize(), function(){
+				$form.hide("slide", {direction: "up"});
+			})	
+		});
+	},
+
+	centerLoginForm: function(){
+		$('#login').css({
+			left: $(window).width()/2 - $("#login").width()/2
 		});
 	}
 }
@@ -196,5 +224,6 @@ jQuery(function() {
   $("input[type='text']:first").focus();
 
 	app.loadReport();
+	app.showLoginForm();
 });
 
