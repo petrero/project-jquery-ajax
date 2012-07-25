@@ -34,3 +34,14 @@ post "/timers.json" do
   return ["ok"].to_json
 end
 
+# An example of serving JSONP.
+#
+# Call with a URL such as:
+#   http://localhost:3000/data.json?callback=myFunction
+get "/data.json" do
+  data = { "meat" => "bacon", "vegetable" => "squash" }
+  
+  content_type "application/json"
+  "#{params[:callback]}(#{data.to_json});"
+end
+

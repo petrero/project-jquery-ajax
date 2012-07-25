@@ -155,7 +155,8 @@ var app = {
 		  taskItem.find("input[type='text']:first").focus();
 		});
 
-		$('.completion a').live("click", function(e) {
+		$('.completion a')
+.live("click", function(e) {
 		  e.preventDefault();
 		  $(this).toggleTaskState();
 		});
@@ -208,6 +209,26 @@ var app = {
 		$('#login').css({
 			left: $(window).width()/2 - $("#login").width()/2
 		});
+	},
+
+	getTweets: function(){
+		//Using 'jsonp' as the last argument appends a callback to the URL.
+		$.get("http://search.twitter.com/search.json?q=pomodoro", app.showTweets, 'jsonp');
+	},
+
+	showTweets: function (data, textStatus, xhr) {
+		//Create a div for the tweetes if it doesn't exist.
+		if ($('body').is(':not(:has(#tweets))')) {
+			$('<div/>', {id: "tweets"}).appendTo("body");
+		}
+		//Create a div for each tweet with image, from_user, and text.
+		$(data.results).each(function(){
+			$('<div/>', {'class': 'tweet'}).
+				append($('<img/>', {'src': this.profile_image_url})).
+				append($('<div/>', {'class': 'from_user', 'text': this.from_user})).
+				append($('<div/>', {'class': 'text', 'html': this.text})).
+				appendTo("#tweets");
+		});
 	}
 }
 
@@ -239,5 +260,6 @@ jQuery(function() {
 
 	app.loadReport();
 	app.showLoginForm();
+	app.getTweets();
 });
 
